@@ -1,0 +1,33 @@
+@mixin textStyle($font-size, $font-weight, $color) {
+    font-size: $font-size;
+    font-weight: $font-weight;
+    color: $color;
+}
+
+@mixin buttonStyle($background-color, $color, $border, $border-radius, $padding) {
+    background-color: $background-color;
+    color: $color;
+    border: $border;
+    border-radius: $border-radius;
+    padding: $padding;
+}
+
+@mixin flexStyle($justify-content, $align-items) {
+    display: flex;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+@mixin gridStyle($grid-template-columns, $grid-template-rows, $grid-column-gap, $grid-row-gap) {
+    display: grid;
+    grid-template-columns: $grid-template-columns;
+    grid-template-rows: $grid-template-rows;
+    grid-column-gap: $grid-column-gap;
+    grid-row-gap: $grid-row-gap;
+}
+
+@mixin responsive($breakpoint) {
+    @media only screen and (max-width: $breakpoint) {
+        @content;
+    }
+}

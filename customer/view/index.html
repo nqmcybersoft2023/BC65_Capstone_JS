@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <!-- FontAwesome 6.2.0 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- (Optional) Use CSS or JS implementation -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
+      integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header_content container">
+        <span class="header-brand"><a href="">BRAND</a></span>
+        <nav class="header-nav">
+          <ul>
+            <li>
+              <a id="cart" href="../view/cart.html"
+                ><i class="fa fa-shopping-cart"></i
+              ></a>
+            </li>
+            <li>
+              <a href="../../admin/views/index.html">Admin</a>
+            </li>
+          </ul>
+        </nav>
+        <button class="header-bar"><i class="fa fa-bars"></i></button>
+      </div>
+    </header>
+    <section class="introduction">
+      <div class="introduction_content container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              id="iphone-tab"
+              data-toggle="tab"
+              href="#iphone"
+              role="tab"
+              aria-controls="iphone"
+              aria-selected="true"
+              >Iphone</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="samsung-tab"
+              data-toggle="tab"
+              href="#samsung"
+              role="tab"
+              aria-controls="samsung"
+              aria-selected="false"
+              >Samsung</a
+            >
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div
+            class="tab-pane fade show active"
+            id="iphone"
+            role="tabpanel"
+            aria-labelledby="iphone-tab"
+          >
+            <div class="tab-content-inner">
+              <div class="tab-image">
+                <img
+                  src="../../assets/images/product1.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="tab-desc">
+                <h3>Lorem ipsum dolor sit amet.</h3>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Reiciendis, recusandae perferendis. Exercitationem tempora cum
+                  labore tempore sed repudiandae libero quis.
+                </p>
+                <a href="#products"><button>SHOP NOW</button></a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="samsung"
+            role="tabpanel"
+            aria-labelledby="samsung-tab"
+          >
+            <div class="tab-content-inner">
+              <div class="tab-image">
+                <img
+                  src="../../assets/images/product2.png"
+                  class="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div class="tab-desc">
+                <h3>Lorem ipsum dolor sit amet.</h3>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Culpa voluptates exercitationem sint nesciunt neque voluptate
+                  atque laborum consequuntur explicabo inventore.
+                </p>
+                <a href="#products"><button>SHOP NOW</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="products" id="products">
+      <div class="products_content container">
+        <h1 class="products-title">SẢN PHẨM</h1>
+        <select name="" id="" class="phone-select">
+          <option value="0">Lựa chọn sản phẩm</option>
+          <option value="1">Samsung</option>
+          <option value="2">Iphone</option>
+        </select>
+        <div class="products_list">
+          <div class="row"></div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <p class="text-center text-white bg-dark" style="margin: 0">
+        © 2024 Cyberphone. All rights reserved.
+      </p>
+    </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.5/axios.min.js"
+      integrity="sha512-TjBzDQIDnc6pWyeM1bhMnDxtWH0QpOXMcVooglXrali/Tj7W569/wd4E8EDjk1CwOAOPSJon1VfcEt1BI4xIrA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="../../assets/js/header.js"></script>
+    <script type="module" src="../controllers/index.js"></script>
+
+    <script>
+      window.onscroll = function () {
+        var header = document.querySelector("header");
+        if (window.scrollY > 100) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      };
+    </script>
+  </body>
+</html>

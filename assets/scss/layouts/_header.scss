@@ -1,0 +1,148 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+header.scrolled {
+    background-color: $color-black;
+    padding: 0;
+}
+
+header {
+    background-color: transparent;
+    padding: 20px 0;
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    margin: auto;
+    border-bottom: 1px solid #00000014;
+    transition: all 0.3s ease-in-out;
+
+    @include responsive($phone) {
+        .header_content {
+            padding: 0;
+
+            span.header-brand {
+                margin-left: 15px;
+            }
+
+            button.header-bar {
+                display: block !important;
+                margin-right: 15px;
+            }
+
+            nav.header-nav {
+                opacity: 0;
+                @include flexStyle(center, center);
+                height: 400px;
+                width: 100vw;
+                transition: all 0.5s ease-in-out;
+                position: fixed;
+                z-index: -1;
+                ;
+                transform: translateY(0);
+
+                ul {
+                    padding: 0;
+
+                    li {
+                        display: block !important;
+                        text-align: center;
+
+                        a {
+                            @include textStyle(1.5rem !important, $fw-bold, $color-white !important);
+
+                            &:hover {
+                                color: darken($color: $color-white, $amount: 20) !important;
+                            }
+
+                            &#cart {
+                                span.cart-value {
+                                    @include textStyle(0.9rem !important, $fw-bold, $color-white !important);
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    .header_content {
+        max-width: 1700px;
+        @include flexStyle(space-between, center);
+
+        button.header-bar {
+            display: none;
+            background-color: transparent;
+            color: $color-white;
+            border: none;
+            @include textStyle(1.5rem, $fw-bold, $color-white);
+        }
+
+        span.header-brand {
+
+            a {
+
+                @include textStyle(50px, $fw-bold, $color-white);
+            }
+        }
+
+
+
+        nav.header-nav {
+
+
+            &.active {
+
+                opacity: 1;
+                color: $color-white ;
+                transform: translateY(100px);
+
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba($color: #000000, $alpha: 0.5);
+                    opacity: 0.9;
+                    z-index: -1;
+                }
+            }
+
+            ul {
+                margin: 0 0;
+
+                li {
+                    display: inline-block;
+
+                    &:not(:last-child) {
+                        margin-right: 10px;
+                    }
+
+                    a {
+                        @include textStyle(1.5rem, $fw-bold, $color-white);
+                        transition: all 0.3s ease-in-out;
+
+                        &:hover {
+                            color: $color-gray;
+                        }
+
+
+                        &#cart {
+                            span.cart-value {
+                                @include textStyle(0.8rem, $fw-bold, $color-white);
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+
+}

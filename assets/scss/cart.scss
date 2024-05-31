@@ -1,0 +1,15 @@
+@import './base/reset';
+@import './abstracts/variables';
+@import './abstracts/mixins';
+@import './layouts/header';
+@import './pages/cart';
+
+
+header {
+    background-color: $color-black;
+}
+
+html,
+body {
+    background-color: $color-white;
+}

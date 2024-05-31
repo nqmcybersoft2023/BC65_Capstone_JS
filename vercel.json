@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/customer/view/index.html",
+      "permanent": true
+    }
+  ]
+}
