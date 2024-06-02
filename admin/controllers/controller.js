@@ -1,8 +1,12 @@
 
 
+
 export let renderPhoneList = (phoneArr) => {
     let contentHTML = '';
-    phoneArr.reverse().forEach((item) => {
+    
+    
+    
+    phoneArr.forEach((item) => {
         let trString = `
             <tr>
             <td>${item.id}</td>
@@ -11,20 +15,19 @@ export let renderPhoneList = (phoneArr) => {
             <td><img src="${item.img}" alt="Product Image" style="max-width: 100px; max-height: 100px;"></td>
             
             <td>${item.desc}<br>
-            <strong>Màn hình:</strong> ${item.screen}<br>
-            <strong>Camera trước:</strong> ${item.frontCamera}<br>
-            <strong>Camera sau:</strong> ${item.backCamera}<br>
+            <strong>Màn hình:</strong> ${item.screen}  MP<br>
+            <strong>Camera trước:</strong> ${item.frontCamera} MP<br>
+            <strong>Camera sau:</strong> ${item.backCamera} MP<br>
             </td>
             <td>
                 <button onclick="deletePhone(${item.id})" class="btn btn-danger">Delete</button>
                 <button  class="btn btn-primary" onclick="getDetailPhone(${item.id})">Sửa</button>
             </td>
         </tr>
-        
-                
-            `;
+        `;
         contentHTML += trString;
     });
+    
     document.getElementById('tablePhone').innerHTML = contentHTML;
 };
 

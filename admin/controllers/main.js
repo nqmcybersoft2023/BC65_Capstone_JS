@@ -4,7 +4,10 @@ import { getDataPhoneForm, renderPhoneList, showInfoPhone, } from "../controller
 import phoneService from "../controllers/service.js";
 import { onSuccess, onFail, resetForm } from "../controllers/controller.js";
 
-const fectPhoneList = () => {
+
+let isUpdating = false;
+
+const fetchPhoneList  = () => {
     phoneService
         .getPhoneListApi()
         .then((res) => {
@@ -15,14 +18,14 @@ const fectPhoneList = () => {
         });
 };
 
-fectPhoneList();
+fetchPhoneList();
 //-------------DELETE--------------
 
 let deletePhone = (id) => {
     phoneService
         .deletePhoneApi(id)
         .then((res) => {
-            fectPhoneList();
+            fetchPhoneList ();
             onSuccess('Xoá thành công')
         })
         .catch((err) => {
@@ -36,61 +39,53 @@ window.deletePhone = deletePhone;
 
 // -------TẠO MỚI---------
 
+ 
 let createPhone = () => {
-    // Lấy dữ liệu từ form
-    let dataPhone = getDataPhoneForm();
-   
-    if (!isValidPhoneData(dataPhone)) {
-        // Hiển thị thông báo lỗi bằng hàm onFail
+    if (isUpdating) {
+        onFail('Đang ở chế độ cập nhật. Không thể thêm mới.');
+        return;
+    }
 
-        onFail('Hãy nhập đủ thông tin.');
-        return; // Dừng thực thi hàm nếu có lỗi
-    } 
-  
-    // }
-    // Kiểm tra tính hợp lệ của giá (phải là số)
+    let dataPhone = getDataPhoneForm();
+
+    if (!isValidPhoneData(dataPhone)) {
+        onFail('Hãy nhập đủ thông tin và đảm bảo các giá trị Front Camera, Back Camera và Screen là số.');
+        return;
+    }
+
     if (isNaN(dataPhone.price)) {
-        // Hiển thị thông báo lỗi cho giá ở sp-thongbao
         let errorElement = document.getElementById('tbprice');
         if (errorElement) {
             errorElement.innerHTML = 'Giá phải là một số.';
         }
-        // Hiển thị thông báo lỗi bằng hàm onFail
         onFail('Giá phải là một số.');
         return;
     } else {
-        // Nếu giá hợp lệ, xóa thông báo lỗi ở sp-thongbao
         let errorElement = document.getElementById('tbprice');
         if (errorElement) {
             errorElement.innerHTML = '';
         }
     }
-    // Nếu dữ liệu hợp lệ, gọi API để tạo mới điện thoại
+
     phoneService
         .createPhoneApi(dataPhone)
         .then((res) => {
-            // Xử lý khi tạo mới thành công
-            fectPhoneList();
+            fetchPhoneList();
             $('#exampleModal').modal('hide');
             onSuccess('Thêm thành công');
-            resetForm()
+            resetForm();
         })
         .catch((err) => {
-            // Xử lý khi gặp lỗi trong quá trình tạo mới
             console.error('Không thể tạo thông tin mới:', err);
             onFail('Có lỗi xảy ra khi tạo mới thông tin.');
         });
 };
 
-// Hàm kiểm tra tính hợp lệ của dữ liệu điện thoại
-let isValidPhoneData = (dataPhone) => {
-    // Thực hiện các kiểm tra tính hợp lệ ở đây
-    // Kiểm tra xem tên điện thoại có được nhập không
-    return dataPhone && dataPhone.backCamera && dataPhone.frontCamera && dataPhone.screen && dataPhone.desc && dataPhone.img && dataPhone.id && dataPhone.price && dataPhone.name && dataPhone.name.trim() !== '';
-};
-
+ 
 
 window.createPhone = createPhone;
+
+
 
 //-------------GET (id) SỬA TỪNG ID-------------
 let getDetailPhone = (id) => {
@@ -142,7 +137,7 @@ let updatePhone = () => {
     phoneService
         .updatePhoneApi(dataPhone)
         .then((res) => {
-            fectPhoneList()
+            fetchPhoneList ()
             $('#exampleModal').modal('hide');
             resetForm()
 
@@ -189,3 +184,52 @@ let searchPhone = () => {
 };
 
 window.searchPhone = searchPhone;
+
+
+// Sort table by price
+let sortAscending = true;
+
+let sortTable = () => {
+    let table = document.getElementById("myTable");
+    let rows = Array.from(table.rows).slice(1);
+    rows.sort((a, b) => {
+        let priceA = parseFloat(a.cells[2].innerText);
+        let priceB = parseFloat(b.cells[2].innerText);
+        return sortAscending ? priceA - priceB : priceB - priceA;
+    });
+
+    let tbody = table.tBodies[0];
+    rows.forEach(row => tbody.appendChild(row));
+    sortAscending = !sortAscending;
+
+    let sortIcon = document.getElementById("sortPriceIcon");
+    sortIcon.className = sortAscending ? "fa fa-sort-asc" : "fa fa-sort-desc";
+};
+
+window.sortTable = sortTable;
+
+// Validation function
+let isValidPhoneData = (dataPhone) => {
+    return dataPhone &&
+        dataPhone.id &&
+        dataPhone.name &&
+        dataPhone.price &&
+        dataPhone.frontCamera &&
+        dataPhone.backCamera &&
+        dataPhone.screen &&
+        dataPhone.desc &&
+        dataPhone.img &&
+        !isNaN(dataPhone.price) &&
+        !isNaN(dataPhone.frontCamera) &&
+        !isNaN(dataPhone.backCamera) &&
+        !isNaN(dataPhone.screen);
+};
+
+// Event listeners
+document.getElementById('addPhoneButton').addEventListener('click', () => {
+    resetForm();
+    isUpdating = false;
+    document.getElementById('saveButton').style.display = 'block';
+    document.getElementById('updateButton').style.display = 'none';
+    $('#exampleModal').modal('show');
+});
