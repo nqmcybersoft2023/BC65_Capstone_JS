@@ -38,8 +38,6 @@ let deletePhone = (id) => {
 window.deletePhone = deletePhone;
 
 // -------TẠO MỚI---------
-
- 
 let createPhone = () => {
     if (isUpdating) {
         onFail('Đang ở chế độ cập nhật. Không thể thêm mới.');
@@ -73,7 +71,7 @@ let createPhone = () => {
             fetchPhoneList();
             $('#exampleModal').modal('hide');
             onSuccess('Thêm thành công');
-            resetForm();
+            resetForm(); // Reset the form after successful creation
         })
         .catch((err) => {
             console.error('Không thể tạo thông tin mới:', err);
@@ -81,10 +79,16 @@ let createPhone = () => {
         });
 };
 
- 
-
 window.createPhone = createPhone;
 
+// Event listener for opening the modal form
+document.getElementById('btnAddPhone').addEventListener('click', () => {
+    resetForm(); // Reset the form when the modal is opened for creating a new phone
+    // isUpdating = false;
+    // document.getElementById('saveButton').style.display = 'block';
+    // document.getElementById('updateButton').style.display = 'none';
+    $('#exampleModal').modal('show');
+});
 
 
 //-------------GET (id) SỬA TỪNG ID-------------
@@ -133,20 +137,18 @@ let updatePhone = () => {
             errorElement.innerHTML = '';
         }
     }
-
     phoneService
         .updatePhoneApi(dataPhone)
         .then((res) => {
-            fetchPhoneList ()
+            fetchPhoneList();
             $('#exampleModal').modal('hide');
-            resetForm()
-
+            resetForm();
         })
         .catch((err) => {
-            console.log(err);
-        }
-        )
-}
+            console.error(err);
+            resetForm(); // Reset the form even if the update fails
+        });
+};
 window.updatePhone = updatePhone;
 //---------TÌM KIẾM ----------
 
