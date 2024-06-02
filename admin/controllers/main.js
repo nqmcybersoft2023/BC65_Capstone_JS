@@ -5,7 +5,7 @@ import phoneService from "../controllers/service.js";
 import { onSuccess, onFail, resetForm } from "../controllers/controller.js";
 
 
-let isUpdating = false;
+let isUpdating = true;
 
 const fetchPhoneList  = () => {
     phoneService
@@ -27,10 +27,11 @@ let deletePhone = (id) => {
         .then((res) => {
             fetchPhoneList ();
             onSuccess('Xoá thành công')
+            resetForm(); 
         })
         .catch((err) => {
             console.error('Error deleting phone:', err);
-
+            resetForm(); 
         });
 };
 
@@ -43,7 +44,7 @@ let createPhone = () => {
         onFail('Đang ở chế độ cập nhật. Không thể thêm mới.');
         return;
     }
-
+    
     let dataPhone = getDataPhoneForm();
 
     if (!isValidPhoneData(dataPhone)) {
@@ -51,27 +52,13 @@ let createPhone = () => {
         return;
     }
 
-    if (isNaN(dataPhone.price)) {
-        let errorElement = document.getElementById('tbprice');
-        if (errorElement) {
-            errorElement.innerHTML = 'Giá phải là một số.';
-        }
-        onFail('Giá phải là một số.');
-        return;
-    } else {
-        let errorElement = document.getElementById('tbprice');
-        if (errorElement) {
-            errorElement.innerHTML = '';
-        }
-    }
-
     phoneService
         .createPhoneApi(dataPhone)
         .then((res) => {
             fetchPhoneList();
+            resetForm();
             $('#exampleModal').modal('hide');
             onSuccess('Thêm thành công');
-            resetForm(); // Reset the form after successful creation
         })
         .catch((err) => {
             console.error('Không thể tạo thông tin mới:', err);
@@ -81,12 +68,13 @@ let createPhone = () => {
 
 window.createPhone = createPhone;
 
+
 // Event listener for opening the modal form
 document.getElementById('btnAddPhone').addEventListener('click', () => {
     resetForm(); // Reset the form when the modal is opened for creating a new phone
-    // isUpdating = false;
-    // document.getElementById('saveButton').style.display = 'block';
-    // document.getElementById('updateButton').style.display = 'none';
+    isUpdating = false;
+    document.getElementById('saveButton').style.display = 'block';
+    document.getElementById('updateButton').style.display = 'none';
     $('#exampleModal').modal('show');
 });
 
@@ -109,44 +97,25 @@ window.getDetailPhone = getDetailPhone;
 
 //--------update-cập nhật--------------
 let updatePhone = () => {
-    // lấy thông tin từ form
     let dataPhone = getDataPhoneForm();
-    console.log(dataPhone.id);
 
-    // Kiểm tra tính hợp lệ của dữ liệu
     if (!isValidPhoneData(dataPhone)) {
-        // Hiển thị thông báo lỗi bằng hàm onFail
-        onFail('Hãy nhập đủ thông tin.');
-        return; // Dừng thực thi hàm nếu có lỗi
+        onFail('Hãy nhập đủ thông tin và đảm bảo các giá trị Front Camera, Back Camera và Screen là số.');
+        return;
     }
 
-    // Kiểm tra tính hợp lệ của giá (phải là số)
-    if (isNaN(dataPhone.price)) {
-        // Hiển thị thông báo lỗi cho giá ở sp-thongbao
-        let errorElement = document.getElementById('tbprice');
-        if (errorElement) {
-            errorElement.innerHTML = 'Giá phải là một số.';
-        }
-        // Hiển thị thông báo lỗi bằng hàm onFail
-        onFail('Giá phải là một số.');
-        return;
-    } else {
-        // Nếu giá hợp lệ, xóa thông báo lỗi ở sp-thongbao
-        let errorElement = document.getElementById('tbprice');
-        if (errorElement) {
-            errorElement.innerHTML = '';
-        }
-    }
     phoneService
         .updatePhoneApi(dataPhone)
         .then((res) => {
             fetchPhoneList();
+            onSuccess('Cập nhật thành công')
             $('#exampleModal').modal('hide');
             resetForm();
         })
         .catch((err) => {
             console.error(err);
-            resetForm(); // Reset the form even if the update fails
+            onFail(err)
+            resetForm();
         });
 };
 window.updatePhone = updatePhone;
@@ -228,10 +197,10 @@ let isValidPhoneData = (dataPhone) => {
 };
 
 // Event listeners
-document.getElementById('addPhoneButton').addEventListener('click', () => {
+document.getElementById('btnAddPhone').addEventListener('click', () => {
     resetForm();
-    isUpdating = false;
-    document.getElementById('saveButton').style.display = 'block';
-    document.getElementById('updateButton').style.display = 'none';
+    isUpdating = true;
+    // document.getElementById('saveButton').style.display = 'block';
+    // document.getElementById('updateButton').style.display = 'none';
     $('#exampleModal').modal('show');
 });
