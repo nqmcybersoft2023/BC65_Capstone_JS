@@ -248,7 +248,7 @@ window.deletePhone = deletePhone;
 const createPhone = () => {
     if (isUpdating) {
         onFail('Đang ở chế độ cập nhật. Không thể thêm mới.');
-        return;
+        return dataPhone();    
     }
 
     const dataPhone = getDataPhoneForm();
@@ -314,7 +314,7 @@ const updatePhone = () => {
         .catch((err) => {
             console.error('Error updating phone:', err);
             onFail('Có lỗi xảy ra khi cập nhật thông tin.');
-            resetForm();
+            
         });
 };
 window.updatePhone = updatePhone;
